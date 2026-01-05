@@ -4,6 +4,30 @@
 
 A lightweight protocol that enables multiple AI models (Claude, Gemini, GPT, etc.) to collaborate on the same task within Cursor IDE, building shared knowledge incrementally.
 
+## Workflow
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│ Phase 1: DISCUSSION (.khub)                                     │
+│ - Models debate, challenge, propose alternatives                │
+│ - Build shared knowledge                                        │
+│ - Reach consensus                                               │
+└──────────────────────────┬──────────────────────────────────────┘
+                           │
+                           ▼
+┌─────────────────────────────────────────────────────────────────┐
+│ USER APPROVAL: "GO"                                             │
+└──────────────────────────┬──────────────────────────────────────┘
+                           │
+                           ▼
+┌─────────────────────────────────────────────────────────────────┐
+│ Phase 2: IMPLEMENTATION (.kdev)                                 │
+│ - Task assignment and rotation                                  │
+│ - Coordinated file edits                                        │
+│ - Work logging                                                  │
+└─────────────────────────────────────────────────────────────────┘
+```
+
 ## The Problem
 
 When using multiple AI models in Cursor, each operates in isolation. They can't see what other models discovered, leading to:
