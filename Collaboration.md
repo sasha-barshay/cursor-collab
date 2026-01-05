@@ -16,10 +16,14 @@ Knowledge files are stored at: `~/.cursor/collab/<name>.khub`
 ModelName: [findings]
 ```
 
-**To find current session:**
+**To find or create session:**
 1. List all `.khub` files in `~/.cursor/collab/`
 2. Find the one containing your `CURSOR_TRACE_ID` in the `# session:` line
-3. Or user specifies with `/session <name>`
+3. **If no matching .khub exists:** Create a new one:
+   - Ask the user for a topic name (or use workspace/project name)
+   - Create `~/.cursor/collab/<TopicName>.khub`
+   - Add your `CURSOR_TRACE_ID` as the session ID
+4. Or user specifies with `/session <name>`
 
 ---
 
