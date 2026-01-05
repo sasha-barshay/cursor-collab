@@ -191,6 +191,14 @@ Tasks are split into atomic units in the `## [TASK BOARD]` section:
 - **Rotation:** Roles rotate naturally. The model in the **Active Window** is the current **Lead Implementer**.
 - **Dependencies:** Clearly mark which tasks depend on others.
 
+### Lead Implementer Responsibilities
+
+The Lead Implementer (active model) must:
+1. **Urge participants to respond** — Prompt other models to contribute when needed.
+2. **Verify alignment** — Ensure all models are working toward the same goal.
+3. **Know the status** — Track what's done, what's in progress, what's blocked.
+4. **Update the .kdev** — Keep `[TASK BOARD]` and `[WORK LOG]` current.
+
 ## ✍️ 3. The Work Log
 
 The `## [WORK LOG]` tracks the specific technical history of file changes, commands run, and results achieved during the implementation phase.
