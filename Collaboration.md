@@ -1,12 +1,20 @@
 # LLM Collaboration Mode
 
-## Keep the KHub Thin (IMPORTANT)
+## ⚠️ IRON RULE: Keep the KHub Thin ⚠️
 
-A `.khub` is a **knowledge hub**, not a chat transcript. To prevent bloat:
+**VIOLATION = IMMEDIATE CORRECTION REQUIRED**
+
+A `.khub` is a **knowledge hub**, not a chat transcript. This is non-negotiable:
 
 - **Ephemeral** content goes to `## Inbox` and is **removed once addressed**
 - **Durable** content (facts/decisions/procedures) goes to topic sections and stays
-- Prefer **1-line summaries** over copying full prompts verbatim
+- **NEVER** copy full user prompts verbatim - use 1-line summaries only
+- **ALWAYS** prune Inbox items after addressing them
+
+**Before every write to .khub:**
+1. Check if Inbox has >15 items → prune oldest resolved items
+2. Check if you're about to paste a long prompt → summarize to 1 line instead
+3. Check if you just addressed an Inbox item → mark it resolved and move/delete it
 
 ### Inbox Rules
 
@@ -57,28 +65,38 @@ ModelName: [findings]
 When the user sends just "." or "r" or "continue" or "round":
 
 1. Find your `.khub` file (search for your session ID in `~/.cursor/collab/*.khub`)
-2. Review what other models have contributed
-3. Identify gaps, unverified claims, or next steps
-4. **Do useful work**: verify facts, run commands, check docs
-5. Add your verified findings to the knowledge file
+2. **VALIDATE IRON RULE COMPLIANCE FIRST:**
+   - Count Inbox items - if >15, prune oldest resolved ones
+   - Check for any long verbatim prompts - summarize them
+   - Check for unresolved Inbox items that should be marked done
+3. Review what other models have contributed
+4. Identify gaps, unverified claims, or next steps
+5. **Do useful work**: verify facts, run commands, check docs
+6. Add your verified findings to the knowledge file
+7. **BEFORE SAVING:** Re-validate - did you violate the IRON RULE? Fix it.
 
 ## Handling User Input (IMPORTANT)
 
 When user sends anything OTHER than "." / "r" / "continue" / "round":
 
-1. **First:** Add the user's input to `## Inbox` as a short, 1-line summary (do not paste long prompts verbatim unless user explicitly asks):
+1. **IRON RULE CHECK:** Is the user input >50 words? → **MUST summarize to 1 line**
+2. **First:** Add the user's input to `## Inbox` as a short, 1-line summary (do not paste long prompts verbatim unless user explicitly asks):
    ```markdown
    ## Inbox
    U<N> [open]: <1-line summary of user input>
    ```
-2. **Then:** Respond to the user AND add your response:
+3. **Then:** Respond to the user AND add your response:
    ```
    ModelName: → Responding to user's question about X
    ModelName: [your finding/answer]
    ```
-3. **Finally:** Once addressed, mark the Inbox item as resolved and keep only the durable result in the relevant topic section:
+4. **Finally:** Once addressed, mark the Inbox item as resolved and keep only the durable result in the relevant topic section:
    - Move to `## Resolved` (optional) or delete from Inbox
    - Ensure the knowledge outcome is recorded under the right section
+5. **IRON RULE VALIDATION:** Before saving, verify:
+   - Inbox item is 1 line or less
+   - No long verbatim prompts copied
+   - Resolved items are moved/removed
 
 ### Example:
 User asks: "What's the RAM situation on the server?"
@@ -142,12 +160,14 @@ Gemini: Risk: [issue] / Mitigation: [solution]
 
 ## Collaboration Rules
 
+0. **IRON RULE FIRST** - Keep hub thin: 1-line summaries, prune Inbox, no verbatim prompts
 1. **Read first** - Understand what others have established
 2. **Don't repeat** - Build on existing findings, don't duplicate
 3. **Verify before adding** - No unconfirmed speculation in knowledge file
 4. **One fact per line** - Keep entries atomic and scannable
 5. **Fill gaps** - Look for missing info, unanswered questions
 6. **Challenge if needed** - If you find a contradiction, note it clearly
+7. **Enforce IRON RULE** - If you see another model violating it, fix it immediately
 
 ## Coordination Within Knowledge File
 
@@ -172,4 +192,20 @@ GPT: → Next: Configure environment variables
 - `/next` - Suggest next action items
 - `/prune` - Suggest what to archive/remove to keep the hub thin (and do it if asked)
 - `/done` - End the collaboration session
+
+## IRON RULE Validation Checklist
+
+**Before every write to .khub, verify:**
+
+- [ ] Inbox has ≤15 items (prune if more)
+- [ ] No user prompts >50 words copied verbatim (summarize to 1 line)
+- [ ] All resolved Inbox items are marked ✓ and moved/removed
+- [ ] Only durable knowledge in topic sections (no chat transcripts)
+- [ ] Each Inbox item is 1 line or less
+
+**If you see violations by other models:**
+- Fix them immediately
+- Summarize long prompts
+- Prune bloated Inbox
+- Move resolved items out
 
