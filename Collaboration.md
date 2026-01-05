@@ -1,10 +1,13 @@
 # LLM Collaboration Mode
 
+## Your Identity
+State your model name clearly (e.g., "Opus", "Gemini", "GPT", "Claude") at the start of every contribution.
+
 ## ⚠️ THE IRON RULE (NON-NEGOTIABLE) ⚠️
 
 **No file edits, deployments, or technical configuration changes are permitted unless:**
 1.  **Consensus is reached** between participating models in the `.khub` file.
-2.  **The user explicitly approves** with a clear **"GO"**.
+2.  **User explicitly approves** with a clear **"GO"**.
 
 This rule is absolute. Even if a solution is "correct," implementing it without a "GO" is a protocol violation.
 
@@ -33,6 +36,11 @@ A `.khub` is a **knowledge hub**, not a chat transcript.
 # session: <CURSOR_TRACE_ID>
 # topic: <Human readable topic>
 
+## [PARTICIPANTS]
+- Opus: 🟢 active
+- Gemini: 🟢 active
+- GPT: ⚪ joined
+
 ## [CONSTRAINTS & PRINCIPLES]
 [Key constraints, goals, principles]
 
@@ -42,7 +50,10 @@ A `.khub` is a **knowledge hub**, not a chat transcript.
 | Component 1 | Decision | ✅/🎯/⏳ | Details |
 
 ## [MODEL FEEDBACK]
-### Round: <Topic>
+### Round 1: <Topic> (started by User)
+- ModelName: [contribution/challenge/alternative]
+
+### Round 2: <Topic> (started by User)
 - ModelName: [contribution/challenge/alternative]
 
 ## [ACTION ITEMS]
@@ -53,6 +64,11 @@ A `.khub` is a **knowledge hub**, not a chat transcript.
 U1 [open]: <1-line summary>
 U2 [✓]: <resolved item>
 ```
+
+**Participant Status:**
+- `🟢 active` - Recently contributed
+- `⚪ joined` - Joined but not yet contributed
+- `🔴 idle` - No recent activity
 
 ## [STATUS BOARD] Indicators:
 - `✅` - Completed/Deployed/Locked
@@ -124,6 +140,18 @@ When user sends anything OTHER than "." / "r" / "continue" / "round":
 5. **Fill gaps** - Look for missing info, unanswered questions.
 6. **Challenge and offer alternatives** - Don't just agree!
 7. **Maintain Hub** - Keep the hub thin and organized.
+8. **Deadlock → Escalate** - If models can't reach consensus, escalate to user for decision.
+
+## Round Management
+
+- **User starts new rounds** - Only the user initiates a new "Round" in `[MODEL FEEDBACK]`.
+- Models contribute to the **current round** until user starts the next one.
+- Format: `### Round N: <Topic> (started by User)`
+
+## Quick Questions
+
+- **Not everything goes to `.khub`** - If user asks a quick question, answer directly.
+- **Only update `.khub`** when user explicitly requests it or when information is valuable for other models.
 
 ---
 
@@ -172,15 +200,28 @@ The `## [WORK LOG]` tracks the specific technical history of file changes, comma
 | T1 | Draft service A | @Opus | - | ✅ DONE |
 | T2 | Connect to B | @Gemini | T1 | 🔨 WORKING |
 
+## [TASK DEFINITIONS]
+### T1: Draft service A
+- **Success Criteria:** File exists, passes lint, imports resolve
+- **Failure Criteria:** Syntax errors, missing dependencies
+- **Rollback:** Delete created file, restore backup if any
+
+### T2: Connect to B
+- **Success Criteria:** Connection established, test passes
+- **Failure Criteria:** Connection refused, timeout
+- **Rollback:** Revert changes to `src/main.py`
+
 ## [WORK LOG]
 - [T1] Opus: Created `src/service_a.py`.
 - [T2] Gemini: Adding connection logic to `src/main.py`.
 ```
 
----
+**Every task MUST define:**
+1. **Success Criteria** - How to verify task is complete
+2. **Failure Criteria** - What constitutes failure
+3. **Rollback Scenario** - How to undo if failed
 
-## Your Identity
-State your model name clearly (e.g., "Opus", "Gemini", "GPT", "Claude")
+---
 
 ## Coordination Markers
 - `?` - Question
