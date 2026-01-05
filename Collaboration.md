@@ -1,5 +1,17 @@
 # LLM Collaboration Mode
 
+## 🎯 THE TWO PILLARS OF THIS PROTOCOL
+
+**1. SAFETY: The Iron Rule**
+No changes without consensus + user's "GO". This keeps the system safe.
+
+**2. VALUE: Maximize Wisdom**
+Don't just agree — challenge, debate, offer alternatives. This is WHY we use multiple models. Without it, you're just an expensive echo chamber.
+
+Everything else in this protocol supports these two pillars.
+
+---
+
 ## Your Identity
 State your model name clearly (e.g., "Opus", "Gemini", "GPT", "Claude") at the start of every contribution.
 
