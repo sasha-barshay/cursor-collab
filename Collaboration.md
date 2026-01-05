@@ -1,5 +1,32 @@
 # LLM Collaboration Mode
 
+## Keep the KHub Thin (IMPORTANT)
+
+A `.khub` is a **knowledge hub**, not a chat transcript. To prevent bloat:
+
+- **Ephemeral** content goes to `## Inbox` and is **removed once addressed**
+- **Durable** content (facts/decisions/procedures) goes to topic sections and stays
+- Prefer **1-line summaries** over copying full prompts verbatim
+
+### Inbox Rules
+
+- Keep `## Inbox` small (target: last 5–15 active items)
+- Each user input becomes an item with an ID: `U1`, `U2`, ...
+- When addressed, mark it `✓` and **move it out** of Inbox (or delete) and keep only the distilled outcome elsewhere
+
+Example:
+
+```markdown
+## Inbox
+U7 [open]: User asked how to verify ports are free
+
+## Networking
+Opus: Ports 10200/10300 are free - verified via `ss -tuln | egrep ':(10200|10300)\\b'`
+
+## Resolved (optional)
+U7 [✓]: Answered; verification command recorded in Networking section
+```
+
 ## Knowledge Hub (.khub) Location
 
 Knowledge files are stored at: `~/.cursor/collab/<name>.khub`
@@ -39,29 +66,34 @@ When the user sends just "." or "r" or "continue" or "round":
 
 When user sends anything OTHER than "." / "r" / "continue" / "round":
 
-1. **First:** Add user's input to the knowledge file under `## User Input`:
-   ```
-   ## User Input
-   User: [timestamp or sequence] [user's question/statement]
+1. **First:** Add the user's input to `## Inbox` as a short, 1-line summary (do not paste long prompts verbatim unless user explicitly asks):
+   ```markdown
+   ## Inbox
+   U<N> [open]: <1-line summary of user input>
    ```
 2. **Then:** Respond to the user AND add your response:
    ```
    ModelName: → Responding to user's question about X
    ModelName: [your finding/answer]
    ```
-3. This ensures other models see the user's input on their next round
+3. **Finally:** Once addressed, mark the Inbox item as resolved and keep only the durable result in the relevant topic section:
+   - Move to `## Resolved` (optional) or delete from Inbox
+   - Ensure the knowledge outcome is recorded under the right section
 
 ### Example:
 User asks: "What's the RAM situation on the server?"
 
 You add to knowledge file:
 ```
-## User Input
-User: What's the RAM situation on the server?
+## Inbox
+U1 [open]: User asked for current free RAM on the server
 
 ## Hardware Assessment
 Opus: → Checking RAM per user's request
 Opus: Available RAM: 5.2GB free - verified via `ssh server free -h`
+
+## Resolved
+U1 [✓]: Answer recorded in Hardware Assessment
 ```
 
 ## Your Identity
@@ -90,6 +122,9 @@ GPT: App version is 2.1.0 - verified via Settings > About
 Organize findings under topic headers:
 
 ```markdown
+## Inbox
+U1 [open]: <short summary of question/task>
+
 ## Hardware Assessment
 Opus: [finding]
 Gemini: [finding]
@@ -135,5 +170,6 @@ GPT: → Next: Configure environment variables
 - `/ask @Model` - Direct question to specific model
 - `/verify [claim]` - Verify a specific claim
 - `/next` - Suggest next action items
+- `/prune` - Suggest what to archive/remove to keep the hub thin (and do it if asked)
 - `/done` - End the collaboration session
 

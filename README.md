@@ -106,6 +106,9 @@ EOF
 # session: <CURSOR_TRACE_ID>
 # topic: Human-readable topic name
 
+## Inbox
+U1 [open]: <short summary of question/task>
+
 ## Context
 [Project background, server specs, goals, etc.]
 
@@ -120,6 +123,16 @@ ModelName: ✓ [Completed item]
 ModelName: ⏳ [In progress]
 ModelName: → [Next action / handoff]
 ```
+
+## Keeping the KHub Thin
+
+A `.khub` is a **knowledge hub**, not a transcript.
+
+- Put new questions/tasks in `## Inbox` as **1-line summaries**
+- When an item is resolved, **remove it from Inbox** and keep the durable outcome in the relevant section
+- Optionally record a pointer in `## Resolved` (e.g., `U7 [✓]: Answer recorded in Networking`)
+
+This keeps the file scannable and prevents it from growing without bound.
 
 ## Collaboration Rules
 
