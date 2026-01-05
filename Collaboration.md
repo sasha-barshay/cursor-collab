@@ -70,10 +70,16 @@ When the user sends just "." or "r" or "continue" or "round":
    - Check for any long verbatim prompts - summarize them
    - Check for unresolved Inbox items that should be marked done
 3. Review what other models have contributed
-4. Identify gaps, unverified claims, or next steps
-5. **Do useful work**: verify facts, run commands, check docs
-6. Add your verified findings to the knowledge file
-7. **BEFORE SAVING:** Re-validate - did you violate the IRON RULE? Fix it.
+4. **MAXIMIZE WISDOM - Look for:**
+   - Assumptions to challenge
+   - Alternative approaches to propose
+   - Tradeoffs to discuss
+   - Missing considerations to add
+   - Disagreements to voice (with reasoning)
+5. Identify gaps, unverified claims, or next steps
+6. **Do useful work**: verify facts, run commands, check docs, challenge assumptions
+7. Add your verified findings, challenges, and alternatives to the knowledge file
+8. **BEFORE SAVING:** Re-validate - did you violate the IRON RULE? Did you just agree, or did you add value?
 
 ## Handling User Input (IMPORTANT)
 
@@ -166,8 +172,64 @@ Gemini: Risk: [issue] / Mitigation: [solution]
 3. **Verify before adding** - No unconfirmed speculation in knowledge file
 4. **One fact per line** - Keep entries atomic and scannable
 5. **Fill gaps** - Look for missing info, unanswered questions
-6. **Challenge if needed** - If you find a contradiction, note it clearly
+6. **Challenge and offer alternatives** - Don't just agree! Question assumptions, propose different approaches, debate tradeoffs
 7. **Enforce IRON RULE** - If you see another model violating it, fix it immediately
+
+## ⚡ Maximize Wisdom: Challenge & Alternatives ⚡
+
+**CRITICAL: Your job is NOT to agree - it's to add value through different perspectives.**
+
+### When you see another model's contribution:
+
+**DON'T:**
+- ❌ Just say "I agree" or "Good point"
+- ❌ Add redundant confirmations
+- ❌ Accept assumptions without questioning
+
+**DO:**
+- ✅ **Challenge assumptions**: "Why use X instead of Y?"
+- ✅ **Offer alternatives**: "Alternative approach: [different method]"
+- ✅ **Question tradeoffs**: "What about the downside of [approach]?"
+- ✅ **Propose different angles**: "From a [security/performance/cost] perspective, consider..."
+- ✅ **Debate**: "I disagree because [reason]"
+- ✅ **Add missing considerations**: "What about [edge case/risk]?"
+
+### Format for Challenges:
+
+```markdown
+## Hardware Assessment
+Opus: Use tiny-int8 model for speed
+Gemini: ⚠️ Challenge: tiny-int8 may have accuracy issues for technical terms. Alternative: base-int8 with caching.
+GPT: ⚠️ Counter-challenge: On i5-4310U, base-int8 latency (4-5s) may hurt UX. Hybrid: tiny-int8 + cloud fallback for complex queries.
+```
+
+### Alternative Approaches Section:
+
+When multiple valid approaches exist, document them:
+
+```markdown
+## Implementation Approaches
+
+### Approach A: Local-only (Opus)
+Opus: Pros: Privacy, no API costs. Cons: Slower, CPU-bound
+Opus: Best for: Simple commands, privacy-critical
+
+### Approach B: Hybrid (Gemini)
+Gemini: Pros: Fast for simple, accurate for complex. Cons: Cloud dependency
+Gemini: Best for: Mixed use cases, acceptable latency
+
+### Approach C: Cloud-first (GPT)
+GPT: Pros: Best accuracy, always up-to-date. Cons: Cost, privacy concerns
+GPT: Best for: Accuracy-critical, budget available
+```
+
+### Challenge Markers:
+
+- `⚠️ Challenge:` - Questioning an assumption or approach
+- `💡 Alternative:` - Proposing a different method
+- `⚖️ Tradeoff:` - Discussing pros/cons
+- `🔍 Missing:` - Pointing out overlooked considerations
+- `❌ Disagree:` - Explicit disagreement with reasoning
 
 ## Coordination Within Knowledge File
 
