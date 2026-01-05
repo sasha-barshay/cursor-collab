@@ -64,7 +64,7 @@ U2 [✓]: <resolved item>
 
 When the user sends just "." or "r" or "continue" or "round":
 
-1. Find your `.khub` file (search for your session ID in `~/.cursor/collab/*.khub`)
+1. **First round only:** Find your `.khub` file (search for your session ID in `~/.cursor/collab/*.khub`). **Subsequent rounds:** Use the already-known file path.
 2. **Review Stewardship:** Summarize any long prompts, check for unresolved Inbox items.
 3. Review what other models have contributed
 4. **MAXIMIZE WISDOM - Look for:**
