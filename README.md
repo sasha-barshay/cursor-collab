@@ -14,10 +14,11 @@ When using multiple AI models in Cursor, each operates in isolation. They can't 
 ## The Solution
 
 A simple file-based protocol where:
-- Models share a **Knowledge Hub** (`.khub` file)
-- Each contribution is **attributed** and **verified**
-- Knowledge **accumulates** across model switches
-- Human can **moderate** and steer the collaboration
+- Models share a **Knowledge Hub** (`.khub` file) for facts and decisions.
+- Models share a **Development Manifest** (`.kdev` file) for coordinated implementation.
+- Each contribution is **attributed**, **verified**, and **challenged**.
+- Knowledge and work status **accumulate** across model switches.
+- Human can **moderate** and steer the collaboration.
 
 ## Quick Start
 
@@ -39,13 +40,13 @@ Go to **Cursor Settings → General → Rules for AI** and paste:
 For LLM Collaboration Mode, follow the protocol at: ~/.cursor/collab/Collaboration.md
 
 When user sends "." or "r" or "continue" or "round":
-1. Find your .khub file by searching for your CURSOR_TRACE_ID in ~/.cursor/collab/*.khub
+1. Find your .khub and .kdev files by searching for your CURSOR_TRACE_ID in ~/.cursor/collab/*.khub
 2. Read what other models contributed
-3. Do useful work (verify, research, run commands)
-4. Add your verified findings to the .khub file
+3. Do useful work (verify, research, run commands, implement)
+4. Add findings to .khub and update tasks in .kdev
 
 When user sends other input:
-1. First add user's input to the .khub file under ## User Input
+1. First add user's input to the .khub file under ## [INBOX]
 2. Then respond and add your response to the file
 3. This ensures other models see the user's input
 
@@ -54,54 +55,40 @@ Always prefix contributions with your model name (Opus, Gemini, GPT, Claude).
 
 ### 3. Start a Session
 
-Create a `.khub` file for your topic:
+Create a `.khub` and `.kdev` file for your topic:
 
 ```bash
+# Example .khub
 cat > ~/.cursor/collab/MyProject.khub << 'EOF'
 # session: <your-cursor-trace-id>
 # topic: My Project Description
+...
+EOF
 
-## Context
-[Describe the project/task here]
+# Example .kdev
+cat > ~/.cursor/collab/MyProject.kdev << 'EOF'
+# session: <your-cursor-trace-id>
+# topic: My Project Description
 
-## Status
-→ Ready to start
+## [SHARED ASSETS & CONSENSUS]
+- Status: ⏳ PENDING
+
+## [TASK BOARD]
+| ID | Task | Assignee | Status |
+|:---|:---|:---|:---|
+| T1 | Initial task | @Opus | ⏳ PENDING |
 EOF
 ```
 
-### 4. Collaborate
+## How It Works: Implementation Phase
 
-- Type `.` or `r` in any Cursor chat to trigger a collaboration round
-- Switch models and type `r` again - they'll see previous contributions
-- Add your input - models will record it for others to see
+1. **Consensus First:** Before writing code, models must agree on "Shared Assets" (paths, ports, APIs) in the `.kdev`.
+2. **Task Rotation:** The model in the active window is the "Lead Implementer".
+3. **Task Tracking:** Progress is tracked in the `.kdev` Task Board and Work Log.
 
-## How It Works
+## .khub & .kdev File Formats
 
-```
-┌─────────────────┐     ┌─────────────────┐     ┌─────────────────┐
-│  Claude (Opus)  │     │     Gemini      │     │    You (Human)  │
-└────────┬────────┘     └────────┬────────┘     └────────┬────────┘
-         │                       │                       │
-         │    type "r"           │    type "r"           │
-         ▼                       ▼                       ▼
-    ┌─────────────────────────────────────────────────────────┐
-    │                    MyProject.khub                       │
-    │  ─────────────────────────────────────────────────────  │
-    │  ## Hardware Assessment                                 │
-    │  Opus: Server has 8GB RAM - verified via `free -h`      │
-    │  Gemini: CPU supports AVX2 - verified via /proc/cpuinfo │
-    │                                                         │
-    │  ## User Input                                          │
-    │  User: What about GPU support?                          │
-    │                                                         │
-    │  ## Status                                              │
-    │  Opus: ✓ RAM checked                                    │
-    │  Gemini: → Checking GPU next                            │
-    └─────────────────────────────────────────────────────────┘
-```
-
-## .khub File Format
-
+### .khub (Knowledge Hub)
 ```markdown
 # session: <CURSOR_TRACE_ID>
 # topic: Human-readable topic name
@@ -122,6 +109,25 @@ ModelName: ? [Question needing resolution]
 ModelName: ✓ [Completed item]
 ModelName: ⏳ [In progress]
 ModelName: → [Next action / handoff]
+```
+
+### .kdev (Development Manifest)
+```markdown
+# session: <CURSOR_TRACE_ID>
+# topic: Human-readable topic name
+
+## [SHARED ASSETS & CONSENSUS]
+- **File Paths:** [/shared/file.py]
+- **Status:** 🤝 Consensus Reached (Opus, Gemini)
+
+## [TASK BOARD]
+| ID | Task | Assignee | Dep | Status |
+|:---|:---|:---|:---|:---|
+| T1 | Implement X | @Opus | - | ✅ DONE |
+| T2 | Test X | @Gemini | T1 | 🔨 WORKING |
+
+## [WORK LOG]
+- [T1] Opus: Implemented X in `src/x.py`.
 ```
 
 ## Keeping the KHub Thin
@@ -167,9 +173,11 @@ This keeps the file scannable and prevents it from growing without bound.
 
 ```
 ~/.cursor/collab/
-├── Collaboration.md      # The protocol (this file)
+├── Collaboration.md      # The protocol
 ├── ProjectA.khub         # Knowledge hub for Project A
+├── ProjectA.kdev         # Dev manifest for Project A
 ├── ProjectB.khub         # Knowledge hub for Project B
+├── ProjectB.kdev         # Dev manifest for Project B
 └── ...
 ```
 

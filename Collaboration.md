@@ -35,54 +35,56 @@ Opus: Ports 10200/10300 are free - verified via `ss -tuln | egrep ':(10200|10300
 U7 [✓]: Answered; verification command recorded in Networking section
 ```
 
-## Knowledge Hub (.khub) Location
+## Knowledge Hub (.khub) & Development (.kdev) Location
 
-Knowledge files are stored at: `~/.cursor/collab/<name>.khub`
+- **.khub (Knowledge):** `~/.cursor/collab/<name>.khub` - Factual status, decisions, and wisdom.
+- **.kdev (Implementation):** `~/.cursor/collab/<name>.kdev` - Real-time task tracking, consensus, and work logs.
 
-**File format:**
-```
+---
+
+# Collaborated Implementation Protocol (.kdev)
+
+To ensure different models don't create conflicts and respect dependencies, the **Consensus First** rule applies.
+
+## 🤝 1. Consensus First (Dependency Management)
+
+Before any code is written or files are modified:
+1. Models must propose **Shared Assets** in the `.kdev` file (e.g., File Paths, API schemas, Port mappings).
+2. Every participating model must review and provide `🤝 ACK` or `⚠️ Challenge`.
+3. **IRON RULE:** Implementation of shared assets is **BLOCKED** until `🤝 Consensus Reached` is noted.
+
+## 📋 2. Task Board & Assignment
+
+Tasks are split into atomic units in the `## [TASK BOARD]` section:
+- **Assignee:** Designated via `@ModelName` (e.g., `@Opus`).
+- **Rotation:** Roles rotate naturally. The model in the **Active Window** is the current **Lead Implementer**.
+- **Dependencies:** Clearly mark which tasks depend on others.
+
+## ✍️ 3. The Work Log
+
+The `## [WORK LOG]` tracks the specific technical history of file changes, commands run, and results achieved during the implementation phase.
+
+## .kdev File Format
+
+```markdown
 # session: <CURSOR_TRACE_ID>
-# topic: <Human readable topic>
+# topic: <TopicName>
 
-## [CONSTRAINTS & PRINCIPLES]
-[Key constraints, goals, principles]
+## [SHARED ASSETS & CONSENSUS]
+- **File Paths:** [list shared files]
+- **Ports/APIs:** [list shared interfaces]
+- **Status:** ⏳ PENDING / 🤝 Consensus Reached
 
-## [STATUS BOARD]
-| Component | Choice | Status | Notes |
-| :--- | :--- | :--- | :--- |
-| Component 1 | Decision | ✅/🎯/⏳ | Details |
-| Component 2 | Decision | Status | Notes |
+## [TASK BOARD]
+| ID | Task | Assignee | Dep | Status |
+|:---|:---|:---|:---|:---|
+| T1 | Draft service A | @Opus | - | ✅ DONE |
+| T2 | Connect to B | @Gemini | T1 | 🔨 WORKING |
 
-## [TECHNICAL SPEC]
-[Detailed technical specifications]
-
-## [MODEL FEEDBACK]
-### Round: <Topic>
-- ModelName: [contribution/challenge/alternative]
-
-## [ACTION ITEMS]
-- [ ] Task 1
-- [x] Task 2 (completed)
-
-## [INBOX]
-U1 [open]: <1-line summary>
-U2 [✓]: <resolved item>
+## [WORK LOG]
+- [T1] Opus: Created `src/service_a.py`.
+- [T2] Gemini: Adding connection logic to `src/main.py`.
 ```
-
-**Status indicators:**
-- `✅` - Completed/Deployed/Locked
-- `🎯` - In Progress/Target
-- `⏳` - Pending/Waiting
-- `❌` - Blocked/Failed
-
-**To find or create session:**
-1. List all `.khub` files in `~/.cursor/collab/`
-2. Find the one containing your `CURSOR_TRACE_ID` in the `# session:` line
-3. **If no matching .khub exists:** Create a new one:
-   - Ask the user for a topic name (or use workspace/project name)
-   - Create `~/.cursor/collab/<TopicName>.khub`
-   - Add your `CURSOR_TRACE_ID` as the session ID
-4. Or user specifies with `/session <name>`
 
 ---
 
