@@ -1,0 +1,33 @@
+# session: <CURSOR_TRACE_ID>
+# topic: Example Project - Server Setup
+
+## Context
+Server: myserver (Intel i5, 8GB RAM)
+Goal: Set up a web application with database
+
+## Hardware Assessment
+Opus: Server specs: Intel i5 (4 cores), 8GB RAM - verified via `lscpu` and `free -h`
+Gemini: Disk space: 50GB available - verified via `df -h`
+
+## Software Requirements
+GPT: Node.js 18+ required - verified via package.json engines field
+Opus: PostgreSQL 14+ needed - verified via docker-compose.yml
+
+## Implementation Steps
+Opus: Step 1 - Install Docker and Docker Compose
+Gemini: Step 2 - Configure environment variables
+GPT: Step 3 - Run database migrations
+
+## Open Questions
+Opus: ? Which port should the app run on?
+Gemini: → Will check if 3000 is available
+
+## Risks and Mitigations
+GPT: Risk: Memory might be tight with all services / Mitigation: Use swap or reduce workers
+
+## Status
+Opus: ✓ Hardware verified
+Gemini: ✓ Dependencies documented
+GPT: ⏳ Setting up Docker
+→ Next: Configure database connection
+
