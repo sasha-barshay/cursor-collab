@@ -44,12 +44,36 @@ Knowledge files are stored at: `~/.cursor/collab/<name>.khub`
 # session: <CURSOR_TRACE_ID>
 # topic: <Human readable topic>
 
-## Context
-[Project context here]
+## [CONSTRAINTS & PRINCIPLES]
+[Key constraints, goals, principles]
 
-## [Topic Sections]
-ModelName: [findings]
+## [STATUS BOARD]
+| Component | Choice | Status | Notes |
+| :--- | :--- | :--- | :--- |
+| Component 1 | Decision | ✅/🎯/⏳ | Details |
+| Component 2 | Decision | Status | Notes |
+
+## [TECHNICAL SPEC]
+[Detailed technical specifications]
+
+## [MODEL FEEDBACK]
+### Round: <Topic>
+- ModelName: [contribution/challenge/alternative]
+
+## [ACTION ITEMS]
+- [ ] Task 1
+- [x] Task 2 (completed)
+
+## [INBOX]
+U1 [open]: <1-line summary>
+U2 [✓]: <resolved item>
 ```
+
+**Status indicators:**
+- `✅` - Completed/Deployed/Locked
+- `🎯` - In Progress/Target
+- `⏳` - Pending/Waiting
+- `❌` - Blocked/Failed
 
 **To find or create session:**
 1. List all `.khub` files in `~/.cursor/collab/`
@@ -78,8 +102,9 @@ When the user sends just "." or "r" or "continue" or "round":
    - Disagreements to voice (with reasoning)
 5. Identify gaps, unverified claims, or next steps
 6. **Do useful work**: verify facts, run commands, check docs, challenge assumptions
-7. Add your verified findings, challenges, and alternatives to the knowledge file
-8. **BEFORE SAVING:** Re-validate - did you violate the IRON RULE? Did you just agree, or did you add value?
+7. **Update STATUS BOARD**: When components/decisions change, update the table directly
+8. Add your verified findings, challenges, and alternatives to the knowledge file
+9. **BEFORE SAVING:** Re-validate - did you violate the IRON RULE? Did you just agree, or did you add value?
 
 ## Handling User Input (IMPORTANT)
 
@@ -109,15 +134,21 @@ User asks: "What's the RAM situation on the server?"
 
 You add to knowledge file:
 ```
-## Inbox
+## [INBOX]
 U1 [open]: User asked for current free RAM on the server
 
-## Hardware Assessment
-Opus: → Checking RAM per user's request
-Opus: Available RAM: 5.2GB free - verified via `ssh server free -h`
+## [STATUS BOARD]
+| Component | Choice | Status | Notes |
+| :--- | :--- | :--- | :--- |
+| Available RAM | 5.2GB free | ✅ VERIFIED | via `ssh server free -h` |
 
-## Resolved
-U1 [✓]: Answer recorded in Hardware Assessment
+## [MODEL FEEDBACK]
+### Round: Hardware Verification
+- Opus: → Checking RAM per user's request
+- Opus: Verified 5.2GB free after services running
+
+## [INBOX]
+U1 [✓]: Answer recorded in STATUS BOARD
 ```
 
 ## Your Identity
@@ -143,26 +174,35 @@ GPT: App version is 2.1.0 - verified via Settings > About
 
 ## Section Structure
 
-Organize findings under topic headers:
+**Primary sections (always present):**
 
 ```markdown
-## Inbox
-U1 [open]: <short summary of question/task>
+## [STATUS BOARD]
+| Component | Choice | Status | Notes |
+| :--- | :--- | :--- | :--- |
+| STT Engine | Whisper tiny-int8 | ✅ DEPLOYED | Verified working |
+| TTS Engine | Piper lessac | 🎯 TESTING | Need voice sample |
 
-## Hardware Assessment
-Opus: [finding]
-Gemini: [finding]
+## [MODEL FEEDBACK]
+### Round: Voice Engine Selection
+- Opus: Propose tiny-int8 for speed on i5-4310U
+- Gemini: ⚠️ Challenge: Accuracy may suffer. Alternative: base-int8 with caching
+- GPT: ⚖️ Tradeoff: tiny-int8 latency 2-3s vs base-int8 4-5s. Recommend tiny for UX.
 
-## Implementation Steps
-Opus: Step 1 - [action]
-GPT: Step 2 - [action]
+## [ACTION ITEMS]
+- [x] Deploy whisper container
+- [ ] Test transcription accuracy
+- [ ] Verify TTS quality
 
-## Open Questions
-Opus: [question needing resolution]
-
-## Risks and Mitigations
-Gemini: Risk: [issue] / Mitigation: [solution]
+## [INBOX]
+U1 [open]: User asked about RAM requirements
+U2 [✓]: Answered in STATUS BOARD
 ```
+
+**Optional sections:**
+- `## [TECHNICAL SPEC]` - Detailed technical documentation
+- `## [RISKS & MITIGATIONS]` - Risk analysis
+- `## [ARCHIVE]` - Historical decisions/incidents
 
 ## Collaboration Rules
 

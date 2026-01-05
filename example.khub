@@ -1,33 +1,50 @@
 # session: <CURSOR_TRACE_ID>
 # topic: Example Project - Server Setup
 
-## Context
-Server: myserver (Intel i5, 8GB RAM)
-Goal: Set up a web application with database
+## [CONSTRAINTS & PRINCIPLES]
+- Server: myserver (Intel i5, 8GB RAM)
+- Goal: Set up a web application with database
+- Budget: Free tier preferred
+- Privacy: Local database required
 
-## Hardware Assessment
-Opus: Server specs: Intel i5 (4 cores), 8GB RAM - verified via `lscpu` and `free -h`
-Gemini: Disk space: 50GB available - verified via `df -h`
+## [STATUS BOARD]
+| Component | Choice | Status | Notes |
+| :--- | :--- | :--- | :--- |
+| Hardware | Intel i5, 8GB RAM | ✅ VERIFIED | via `lscpu` and `free -h` |
+| Disk Space | 50GB available | ✅ VERIFIED | via `df -h` |
+| Node.js | 18+ required | 🎯 PENDING | Check package.json |
+| Database | PostgreSQL 14+ | 🎯 PENDING | Need docker-compose |
+| App Port | TBD | ⏳ DECIDING | Checking port 3000 availability |
+| Docker | Not installed | ⏳ TODO | Step 1 |
 
-## Software Requirements
-GPT: Node.js 18+ required - verified via package.json engines field
-Opus: PostgreSQL 14+ needed - verified via docker-compose.yml
+## [TECHNICAL SPEC]
+- Node.js: Version 18+ (LTS)
+- Database: PostgreSQL 14+
+- Container: Docker + Docker Compose
+- Port: TBD (checking 3000)
 
-## Implementation Steps
-Opus: Step 1 - Install Docker and Docker Compose
-Gemini: Step 2 - Configure environment variables
-GPT: Step 3 - Run database migrations
+## [MODEL FEEDBACK]
+### Round: Hardware Verification
+- Opus: Server specs verified - Intel i5 (4 cores), 8GB RAM
+- Gemini: Disk space confirmed - 50GB available
 
-## Open Questions
-Opus: ? Which port should the app run on?
-Gemini: → Will check if 3000 is available
+### Round: Port Selection
+- Opus: ? Which port should the app run on?
+- Gemini: → Will check if 3000 is available
+- GPT: ⚠️ Challenge: Port 3000 may conflict with other services. Alternative: Use 8080 or check `/etc/services`
 
-## Risks and Mitigations
-GPT: Risk: Memory might be tight with all services / Mitigation: Use swap or reduce workers
+## [ACTION ITEMS]
+- [x] Verify hardware specs
+- [x] Check disk space
+- [ ] Install Docker and Docker Compose
+- [ ] Configure environment variables
+- [ ] Run database migrations
+- [ ] Determine app port
 
-## Status
-Opus: ✓ Hardware verified
-Gemini: ✓ Dependencies documented
-GPT: ⏳ Setting up Docker
-→ Next: Configure database connection
+## [RISKS & MITIGATIONS]
+- GPT: Risk: Memory might be tight with all services / Mitigation: Use swap or reduce workers
+- Opus: Risk: Port conflicts / Mitigation: Check `ss -tuln` before assigning
 
+## [INBOX]
+U1 [open]: User asked about server setup requirements
+U1 [✓]: Requirements documented in STATUS BOARD
