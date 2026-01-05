@@ -195,6 +195,19 @@ Tasks are split into atomic units in the `## [TASK BOARD]` section:
 
 The `## [WORK LOG]` tracks the specific technical history of file changes, commands run, and results achieved during the implementation phase.
 
+## ⚠️ 4. Implementation Interrupts
+
+If issues arise during implementation:
+
+| Scenario | Action |
+|----------|--------|
+| **Minor clarification** | Add note to `[WORK LOG]`, continue |
+| **Technical blocker** | Update task to `❌ BLOCKED`, document why, continue other tasks |
+| **Challenge to the approach** | **STOP** → Raise in `.khub` → New discussion round → Need new consensus + "GO" |
+| **New info that changes the plan** | **STOP** → Back to Phase 1 → User decides |
+
+**Rule:** If in doubt, STOP and escalate to `.khub`. Better to pause than to implement the wrong thing.
+
 ## .kdev File Format
 
 ```markdown
